@@ -2,7 +2,6 @@ package student.model;
 
 import static org.springframework.data.elasticsearch.annotations.FieldType.Text;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;

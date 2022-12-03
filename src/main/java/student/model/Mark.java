@@ -3,6 +3,7 @@ package student.model;
 import static org.springframework.data.elasticsearch.annotations.FieldType.Text;
 
 import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 
 public class Mark {
@@ -13,7 +14,7 @@ public class Mark {
 	@Field(type = Text)
 	private Subject subject;
 
-	@Field(type = Text)
+	@Field(type = FieldType.Integer)
 	private Integer mark;
 
 	public Integer getMark() {
