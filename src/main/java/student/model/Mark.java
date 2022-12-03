@@ -15,14 +15,14 @@ public class Mark {
 	private Subject subject;
 
 	@Field(type = FieldType.Integer)
-	private Integer mark;
+	private Integer markValue;
 
-	public Integer getMark() {
-		return mark;
+	public Integer getMarkValue() {
+		return markValue;
 	}
 
-	public void setMark(Integer mark) {
-		this.mark = mark;
+	public void setMarkValue(Integer markValue) {
+		this.markValue = markValue;
 	}
 
 	public Subject getSubject() {

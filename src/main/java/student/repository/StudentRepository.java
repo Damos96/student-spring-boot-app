@@ -10,6 +10,7 @@ import student.model.Student;
 @Repository
 public interface StudentRepository extends ElasticsearchRepository<Student, String> {
 
+	Page<Student> findById(String studentId, Pageable pageable);
 //    Page<Student> findByAuthorsName(String name, Pageable pageable);
 //
 //    @Query("{\"bool\": {\"must\": [{\"match\": {\"authors.name\": \"?0\"}}]}}")

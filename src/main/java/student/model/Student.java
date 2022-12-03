@@ -2,6 +2,7 @@ package student.model;
 
 import static org.springframework.data.elasticsearch.annotations.FieldType.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -21,7 +22,8 @@ public class Student {
     @Field(type = FieldType.Text)
     private Subject subject;
     
-    private List<Mark> marks;
+    @Field(type = FieldType.Nested)
+    private List<Mark> marks = new ArrayList<Mark>();
     
     public Student() {
     }
@@ -53,6 +55,14 @@ public class Student {
 
 	public void setSubject(Subject subject) {
 		this.subject = subject;
+	}
+    
+    public List<Mark> getMarks() {
+		return marks;
+	}
+
+	public void setMarks(List<Mark> marks) {
+		this.marks = marks;
 	}
 
     @Override
