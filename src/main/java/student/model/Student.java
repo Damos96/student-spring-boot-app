@@ -4,6 +4,7 @@ import static org.springframework.data.elasticsearch.annotations.FieldType.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -24,6 +25,10 @@ public class Student {
     
     @Field(type = FieldType.Nested)
     private List<Mark> marks = new ArrayList<Mark>();
+    
+    public List<Mark> getMarksBySemester(Semester semester) {
+    	return marks.stream().filter(mark -> mark.getSemester().equals(semester)).collect(Collectors.toList());
+    }
     
     public Student() {
     }

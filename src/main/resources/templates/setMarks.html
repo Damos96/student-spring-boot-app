@@ -22,22 +22,13 @@ The ${} operator tells it to use the value of a request attribute ( "message" , 
 <body>
 	
 	
-	<form method="POST" th:object="${student}">
+	<form method="POST" th:object="${student}"s>
 		<h1>Add the marks for <span th:text="${student.name}">Student</span></h1> <br />
 		<div class="grid">
-			<h3>Semester 1:</h3>
-			<div th:each="mark : ${semester1}">
-				<span th:text="${mark.subject}">Mark</span><br />
-				<input type="text" th:field="*{markValue}" /> <br />
+			<div th:each="mark , itemStat : ${student.marks}">
+				<span th:text="${mark.semester} + ' '+ ${mark.subject}">Mark</span><br />
+				<input type="text" th:field="*{marks[__${itemStat.index}__].markValue}" /> <br />
 			</div>
-		</div>
-		<div class="grid">
-			<h3>Semester 2:</h3>
-			<div th:each="mark : ${semester2}">
-				<span th:text="${mark.subject}">Mark</span><br />
-				<input type="text" th:field="*{markValue}" /> <br />
-			</div>
-		</div>
 	</form>
 </body>
 </html>
