@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Taco Cloud</title>
+<!-- 
+Thymeleaf templates are just HTML with some additional element attributes that guide a
+template in rendering request data. For example, if there were a request attribute whose key is
+"message" , and you wanted it to be rendered into an HTML <p> tag by Thymeleaf, you’d write
+the following in your Thymeleaf template:
+	
+	<p th:text="${message}">placeholder message</p>
+
+When the template is rendered into HTML, the body of the <p> element will be replaced with the
+value of the servlet request attribute whose key is "message" . The th:text attribute is a
+Thymeleaf-namespaced attribute that performs the replacement. 
+
+The ${} operator tells it to use the value of a request attribute ( "message" , in this case). 
+-->
+<link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+<body>
+	<h1>Design your taco!</h1>
+	<!-- 
+		The following line has attribute th:src="@{/images/TacoCloud.png}"
+		
+		Thymeleaf’s @{} operator is used to produce a context-relative path
+		to the static artifacts that they’re referencing. static content in
+		a Spring Boot application is served from the /static directory at 
+		the root of the classpath. 
+	 -->
+	<img th:src="@{/images/TacoCloud.png}" />
+	<!--
+		Here you are selecting an object{taco} using th:object. You can use the 
+		same object's fields using operator using *{} operator.
+		
+		So, *{incredients} is equivalent to {taco.incredients}
+		
+		The return object will be specified using th:object.
+		when the form is submitted, the the object specified by the th:object 
+		attribute will be returned.
+	
+		
+		Refer : https://www.thymeleaf.org/doc/tutorials/2.1/thymeleafspring.html#creating-a-form
+		
+		For the form submission action, we can specify using th:action attribute.
+		But, it is not mandatory.
+		
+		This form attribute does not have action attribute, action mapping happens
+		in the Spring boot app using @PostMapping.
+	 -->
+	<form method="POST" th:object="${taco}">
+		<div class="grid">
+			<div class="ingredient-group" id="wraps">
+				<h3>Designate your wrap:</h3>
+				<!--
+					th:each is like a for loop.	wrap has list of ingredients. 
+					
+					The check box uses Thymeleaf’s th:value to set the rendered	
+					<input> element’s value attribute to the value found in the
+					ingredient’s id	property. 
+					
+					The th:field attribute ultimately sets the <input> element’s 
+					name attribute and is used to remember whether the checkbox 
+					is checked or not.
+					
+					here, we are going to add the the ingredient to the ingredients
+					field in taco object if the checkbox is checked.
+				 -->
+				<div th:each="ingredient : ${wrap}">
+					<input th:field="*{ingredients}" type="checkbox"
+						th:value="${ingredient.id}" /> <span th:text="${ingredient.name}">INGREDIENT</span><br />
+				</div>
+			</div>
+			<div class="ingredient-group" id="proteins">
+				<h3>Pick your protein:</h3>
+				<div th:each="ingredient : ${protein}">
+					<input th:field="*{ingredients}" type="checkbox"
+						th:value="${ingredient.id}" /> <span th:text="${ingredient.name}">INGREDIENT</span><br />
+				</div>
+			</div>
+			<div class="ingredient-group" id="cheeses">
+				<h3>Choose your cheese:</h3>
+				<div th:each="ingredient : ${cheese}">
+					<input th:field="*{ingredients}" type="checkbox"
+						th:value="${ingredient.id}" /> <span th:text="${ingredient.name}">INGREDIENT</span><br />
+				</div>
+			</div>
+			<div class="ingredient-group" id="veggies">
+				<h3>Determine your veggies:</h3>
+				<div th:each="ingredient : ${veggies}">
+					<input th:field="*{ingredients}" type="checkbox"
+						th:value="${ingredient.id}" /> <span th:text="${ingredient.name}">INGREDIENT</span><br />
+				</div>
+			</div>
+			<div class="ingredient-group" id="sauces">
+				<h3>Select your sauce:</h3>
+				<div th:each="ingredient : ${sauce}">
+					<input th:field="*{ingredients}" type="checkbox"
+						th:value="${ingredient.id}" /> <span th:text="${ingredient.name}">INGREDIENT</span><br />
+				</div>
+			</div>
+		</div>
+		<div>
+			<h3>Name your taco creation:</h3>
+			<input type="text" th:field="*{name}" /> <br />
+			<button>Submit Your Taco</button>
+		</div>
+	</form>
+</body>
+</html>

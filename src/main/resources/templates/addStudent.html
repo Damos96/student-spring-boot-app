@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Taco Cloud</title>
+<!-- 
+Thymeleaf templates are just HTML with some additional element attributes that guide a
+template in rendering request data. For example, if there were a request attribute whose key is
+"message" , and you wanted it to be rendered into an HTML <p> tag by Thymeleaf, you’d write
+the following in your Thymeleaf template:
+	
+	<p th:text="${message}">placeholder message</p>
+
+When the template is rendered into HTML, the body of the <p> element will be replaced with the
+value of the servlet request attribute whose key is "message" . The th:text attribute is a
+Thymeleaf-namespaced attribute that performs the replacement. 
+
+The ${} operator tells it to use the value of a request attribute ( "message" , in this case). 
+-->
+<link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+<body>
+	<h1>Add a student</h1>
+	
+	<form method="POST" th:object="${student}">
+		<div class="grid">
+			<h3>Enter your name:</h3>
+			<input type="text" th:field="*{name}" />
+		</div>
+		<div>
+			<button>Submit student</button>
+		</div>
+	</form>
+</body>
+</html>
