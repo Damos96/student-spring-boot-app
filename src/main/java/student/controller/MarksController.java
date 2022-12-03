@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import student.model.Mark;
 import student.model.Semester;
@@ -37,6 +38,17 @@ public class MarksController {
 		return "setMarks";
 	}
     
+    @RequestMapping(value = "/id/{studentId}", method = RequestMethod.POST)
+    public String addStudent(@PathVariable String studentId, Student newMarks) {
+
+    	Student student = studentRepository.findById(studentId).get();
+        LOG.info("Adding user : {}", student);
+        student.setMarks(newMarks.getMarks());
+    	studentRepository.save(student);
+        LOG.info("Added user : {}", student);
+        return "succesful";
+    }
+    
 	public void addIngredientsToModel(List<Mark> marks, Model model) {
     	
 		for (Semester semester : Semester.values()) {
@@ -50,6 +62,6 @@ public class MarksController {
 			}
 			model.addAttribute(semester.toString().toLowerCase(), semesterMarks);
 		}
-		
+		model.addAttribute("allMarks", marks);		
 	}
 }
