@@ -20,37 +20,37 @@ import student.model.Student;
 import student.model.Subject;
 import student.repository.StudentRepository;
 
-@Controller 
+@Controller
 @RequestMapping("/marks")
 public class MarksController {
-	
-    private final Logger LOG = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private StudentRepository studentRepository;
-    
-    @GetMapping("/id/{studentId}")
-    public String getUser(@PathVariable String studentId, Model model) {
-    	Student student = studentRepository.findById(studentId).get();
-    	student.setMarks(new ArrayList());
-    	addIngredientsToModel(student.getMarks(), model);
-    	model.addAttribute("student", student);
+	private final Logger LOG = LoggerFactory.getLogger(getClass());
+
+	@Autowired
+	private StudentRepository studentRepository;
+
+	@GetMapping("/id/{studentId}")
+	public String getUser(@PathVariable String studentId, Model model) {
+		Student student = studentRepository.findById(studentId).get();
+		student.setMarks(new ArrayList());
+		addMarksToModel(student.getMarks(), model);
+		model.addAttribute("student", student);
 		return "setMarks";
 	}
-    
-    @RequestMapping(value = "/id/{studentId}", method = RequestMethod.POST)
-    public String addStudent(@PathVariable String studentId, Student newMarks) {
 
-    	Student student = studentRepository.findById(studentId).get();
-        LOG.info("Adding user : {}", student);
-        student.setMarks(newMarks.getMarks());
-    	studentRepository.save(student);
-        LOG.info("Added user : {}", student);
-        return "succesful";
-    }
-    
-	public void addIngredientsToModel(List<Mark> marks, Model model) {
-    	
+	@RequestMapping(value = "/id/{studentId}", method = RequestMethod.POST)
+	public String addStudent(@PathVariable String studentId, Student newMarks) {
+
+		Student student = studentRepository.findById(studentId).get();
+		LOG.info("Adding marks to student : {}", student);
+		student.setMarks(newMarks.getMarks());
+		studentRepository.save(student);
+		LOG.info("Added marks to student : {}", student);
+		return "succesful";
+	}
+
+	public void addMarksToModel(List<Mark> marks, Model model) {
+
 		for (Semester semester : Semester.values()) {
 			List<Mark> semesterMarks = new ArrayList<>();
 			for (Subject subject : Subject.values()) {
@@ -59,9 +59,10 @@ public class MarksController {
 				mark.setSubject(subject);
 				marks.add(mark);
 				semesterMarks.add(mark);
+				model.addAttribute(semester.toString().toLowerCase(), semesterMarks);
 			}
-			model.addAttribute(semester.toString().toLowerCase(), semesterMarks);
 		}
-		model.addAttribute("allMarks", marks);		
+
+		model.addAttribute("allMarks", marks);
 	}
 }

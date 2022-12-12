@@ -16,30 +16,30 @@ import student.repository.StudentRepository;
 @RequestMapping("/students")
 public class StudentController {
 
-    private final Logger LOG = LoggerFactory.getLogger(getClass());
+	private final Logger LOG = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private StudentRepository studentRepository;
-    
-    @GetMapping
-	public String showDesignForm(Model model) {
-		
+	@Autowired
+	private StudentRepository studentRepository;
+
+	@GetMapping
+	public String showStudentForm(Model model) {
+
 		// model is populated with an empty slate of an object
 		// on which the view is going to make changes to.
 		model.addAttribute("student", new Student());
-		
-		// this is the logical name of the view. when this path is called with 
+
+		// this is the logical name of the view. when this path is called with
 		// GET request, the view with this logical name will be returned
 		return "addStudent";
 	}
-    
-    @RequestMapping(method = RequestMethod.POST)
-    public String addStudent(Student student) {
-    	
-        LOG.info("Adding user : {}", student);
-    	studentRepository.save(student);
-        LOG.info("Added user : {}", student);
-        return "succesful";
-    }
-    
+
+	@RequestMapping(method = RequestMethod.POST)
+	public String addStudent(Student student) {
+
+		LOG.info("Adding student : {}", student);
+		studentRepository.save(student);
+		LOG.info("Added student : {}", student);
+		return "succesful";
+	}
+
 }
