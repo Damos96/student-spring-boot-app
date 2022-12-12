@@ -11,4 +11,6 @@ import student.model.Student;
 public interface StudentRepository extends ElasticsearchRepository<Student, String> {
 
 	Page<Student> findById(String studentId, Pageable pageable);
+	
+	List<Student> findBySemester(Semester semester);
 }
