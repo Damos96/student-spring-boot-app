@@ -32,24 +32,23 @@ public class MarksController {
     public String getUser(@PathVariable String studentId, Model model) {
     	Student student = studentRepository.findById(studentId).get();
     	student.setMarks(new ArrayList());
-    	addIngredientsToModel(student.getMarks(), model);
+    	addMarksToModel(student.getMarks(), model);
     	model.addAttribute("student", student);
-		return "setMarks";
-	}
+	return "setMarks";
+    }
     
-	public void addIngredientsToModel(List<Mark> marks, Model model) {
+    public void addMarksToModel(List<Mark> marks, Model model) {
     	
-		for (Semester semester : Semester.values()) {
-			List<Mark> semesterMarks = new ArrayList<>();
-			for (Subject subject : Subject.values()) {
-				Mark mark = new Mark();
-				mark.setSemester(semester);
-				mark.setSubject(subject);
-				marks.add(mark);
-				semesterMarks.add(mark);
-			}
-			model.addAttribute(semester.toString().toLowerCase(), semesterMarks);
+	for (Semester semester : Semester.values()) {
+		List<Mark> semesterMarks = new ArrayList<>();
+		for (Subject subject : Subject.values()) {
+			Mark mark = new Mark();
+			mark.setSemester(semester);
+			mark.setSubject(subject);
+			marks.add(mark);
+			semesterMarks.add(mark);
 		}
-		
-	}
+		model.addAttribute(semester.toString().toLowerCase(), semesterMarks);
+	}	
+     }
 }
