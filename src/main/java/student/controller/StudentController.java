@@ -22,16 +22,16 @@ public class StudentController {
     private StudentRepository studentRepository;
     
     @GetMapping
-	public String showDesignForm(Model model) {
+    public String showStudentForm(Model model) {
 		
-		// model is populated with an empty slate of an object
-		// on which the view is going to make changes to.
-		model.addAttribute("student", new Student());
+	// model is populated with an empty slate of an object
+	// on which the view is going to make changes to.
+	model.addAttribute("student", new Student());
 		
-		// this is the logical name of the view. when this path is called with 
-		// GET request, the view with this logical name will be returned
-		return "addStudent";
-	}
+	// this is the logical name of the view. when this path is called with 
+	// GET request, the view with this logical name will be returned
+	return "addStudent";
+    }
     
     @RequestMapping(method = RequestMethod.POST)
     public String addStudent(Student student) {
