@@ -11,14 +11,4 @@ import student.model.Student;
 public interface StudentRepository extends ElasticsearchRepository<Student, String> {
 
 	Page<Student> findById(String studentId, Pageable pageable);
-//    Page<Student> findByAuthorsName(String name, Pageable pageable);
-//
-//    @Query("{\"bool\": {\"must\": [{\"match\": {\"authors.name\": \"?0\"}}]}}")
-//    Page<Student> findByAuthorsNameUsingCustomQuery(String name, Pageable pageable);
-//
-//    @Query("{\"bool\": {\"must\": {\"match_all\": {}}, \"filter\": {\"term\": {\"tags\": \"?0\" }}}}")
-//    Page<Student> findByFilteredTagQuery(String tag, Pageable pageable);
-//
-//    @Query("{\"bool\": {\"must\": {\"match\": {\"authors.name\": \"?0\"}}, \"filter\": {\"term\": {\"tags\": \"?1\" }}}}")
-//    Page<Student> findByAuthorsNameAndFilteredTagQuery(String name, String tag, Pageable pageable);
 }
