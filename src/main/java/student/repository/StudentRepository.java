@@ -6,6 +6,7 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import org.springframework.stereotype.Repository;
 
 import student.model.Student;
+import student.model.Semester;
 
 @Repository
 public interface StudentRepository extends ElasticsearchRepository<Student, String> {
